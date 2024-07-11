@@ -1,10 +1,15 @@
 from fastapi import FastAPI, HTTPException
 from fastapi.openapi.docs import get_swagger_ui_html
+#from fastapi.openapi.docs import getswaggeruihtml
 from starlette.responses import RedirectResponse, JSONResponse
-
 from src.config.log_config import log_config
 from src.controller.auth_controller import auth_router
 from src.controller.product_controller import product_router
+from fastapi.middleware.cors import CORSMiddleware
+#from src.config.log_config import settings
+
+#logger = settings()
+#logger.info('Iniciando a aplicação')
 
 app = FastAPI(
     title="Product Registration API",
@@ -34,9 +39,16 @@ app = FastAPI(
     ]
 )
 
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"]
+)
+
 app.include_router(product_router)
 app.include_router(auth_router)
-
 
 @app.exception_handler(Exception)
 async def general_exception_handler(request, exc: Exception):
@@ -45,7 +57,6 @@ async def general_exception_handler(request, exc: Exception):
         content={"message": "Um erro inesperado correu no servidor"}
     )
 
-
 @app.exception_handler(HTTPException)
 async def general_exception_handler(request, exc: HTTPException):
     return JSONResponse(
@@ -53,11 +64,9 @@ async def general_exception_handler(request, exc: HTTPException):
         content={"message": exc.detail}
     )
 
-
 @app.get('/', tags=['Redirect'], include_in_schema=False)
 async def redirect_to_docs():
     return RedirectResponse(url='/docs')
-
 
 @app.get('/docs', tags=['Redirect'], include_in_schema=False)
 async def get_openapi():
@@ -65,7 +74,6 @@ async def get_openapi():
         openapi_url="/openapi.json",
         title="OpenApi UI"
     )
-
 
 if __name__ == '__main__':
     import uvicorn
