@@ -29,9 +29,10 @@ async def create (request: ProdutoCreateDTO, user_repo: ProductRepository = Depe
     product_service = ProductService(user_repo),
     return product_service.create(request)
 
+'''
 # TO DO: implementar método para buscar produto por ID
 # async def find_by_id(user_id: int, service: ProductService = Depends(get_product_service)):
-#     return service.find_by_id(user_id=user_id)
+#     return service.find_by_id(user_id=user_id) '''
 
 @product_router.get('/{user_id}', status_code=200, description='Buscar o Produto por id!', response_model=ProdutoDTO)
 async def find_by_id(user_id: int, user_repo: ProductService = Depends(get_product_service), authorization: str = Depends(get_product_service)):
@@ -39,9 +40,10 @@ async def find_by_id(user_id: int, user_repo: ProductService = Depends(get_produ
     product_service = ProductService(user_repo)
     return product_service.find_by_id(user_id=user_id)
 
+'''
 # TO DO: implementar método para buscar todos os produtos
 # async def find_all(service: ProductService = Depends(get_product_service)):
-#     return service.find_all()
+#     return service.find_all() '''
 
 @product_router.get('/', status_code=200, description='Buscar todos os Produtos!', response_model=list[ProdutoDTO])
 async def find_all (user_repo: ProductRepository = Depends(get_product_service), authorization: str = Depends(get_product_service)):
@@ -49,9 +51,10 @@ async def find_all (user_repo: ProductRepository = Depends(get_product_service),
     product_service = ProductService(user_repo)
     return product_service.find_all()
 
+'''
 # TO DO: implementar método para atualizar produto
 # async def update(user_id: int, user_data: ProdutoUpdateDTO, service: ProductService = Depends(get_product_service)):
-#     return service.update(user_id, user_data)
+#     return service.update(user_id, user_data) '''
 
 @product_router.put('/{user_id}', status_code=200, description='Atualizar um Produto!', response_model=ProdutoDTO)
 async def update (user_id: int, user_data: ProdutoUpdateDTO, user_repo: ProductRepository = Depends(get_product_service), authorization: str = Depends(get_product_service)):
@@ -59,9 +62,10 @@ async def update (user_id: int, user_data: ProdutoUpdateDTO, user_repo: ProductR
     product_service = ProductService(user_repo)
     return product_service.update(user_id, user_data)
 
+'''
 # TO DO: implementar método para deletar produto
 # async def delete(user_id: int, service: ProductService = Depends(get_product_service)):
-#     service.delete(user_id=user_id)
+#     service.delete(user_id=user_id) '''
 
 @product_router.delete('/{user_id}', status_code=204, description='Deletar o Produto por id!')
 async def delete (user_id: int, user_repo: ProductRepository = Depends(get_product_service), authorization: str = Depends(get_product_service)):
