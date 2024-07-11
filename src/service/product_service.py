@@ -24,7 +24,7 @@ class ProductService:
             logger.error(f'Erro ao criar o Produto: {user_data.model_dump()}')
             raise HTTPException(status_code=409, detail=f'Produto já existe na base: {e.args[0]}')
 
-    def read(self, user_id: int) -> ProdutoDTO:
+    def find_by_id(self, user_id: int) -> ProdutoDTO:
         logger.info('Buscando um Produto!')
         return TypeAdapter(ProdutoDTO).validate_python(self._read(user_id))
 

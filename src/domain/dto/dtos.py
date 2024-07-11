@@ -1,8 +1,7 @@
 from datetime import datetime
 from typing import Optional
 
-from pydantic import BaseModel
-
+from pydantic import BaseModel, ConfigDict
 
 class ProdutoDTO(BaseModel):
     id: int
@@ -10,7 +9,7 @@ class ProdutoDTO(BaseModel):
     descricao: str
     preco: float
     estoque: int
-
+    model_config = ConfigDict(from_attributes=True)
 
 class ProdutoCreateDTO(BaseModel):
     nome: str
