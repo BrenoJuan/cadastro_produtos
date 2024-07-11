@@ -2,7 +2,6 @@ from sqlalchemy.orm import Session
 
 from src.domain.model.models import Product
 
-
 class ProductRepository:
 
     def __init__(self, db: Session):

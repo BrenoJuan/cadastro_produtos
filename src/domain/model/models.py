@@ -3,7 +3,6 @@ from sqlalchemy import Column, Integer, String, Float
 from src.config.database import Base
 from src.config.database import init_db
 
-
 class Product(Base):
     __tablename__ = 'products'
 
